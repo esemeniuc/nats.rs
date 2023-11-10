@@ -593,7 +593,7 @@ impl ConnectionHandler {
     }
 
     fn handle_server_op(&mut self, server_op: ServerOp) {
-        self.ping_interval.reset();
+        self.ping_interval = interval_at(Instant::now(), self.ping_interval.period());
 
         match server_op {
             ServerOp::Ping => {
